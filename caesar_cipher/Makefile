@@ -1,5 +1,5 @@
 all:create_directories main
-src_files = src/encoder.cpp src/decoder.cpp
+src_files = $(wildcard src/*.cpp)
 obj_files = $(patsubst src/%.cpp, obj/%.o, $(src_files))
 lib_files = $(patsubst obj/%.o, lib/lib%.so, $(obj_files))
 src_test  = src/test/unit_test.cpp
@@ -18,9 +18,7 @@ lib/lib%.a:obj/%.o
 	ar -cvq $@ $^
 
 main:$(lib_files) $(obj_files) $(obj_test) $(lib_test)
-	g++ src/main/main.cpp -L./lib -I./inc/ -ldecoder -lencoder -lunit_test -o bin/main
-	export LD_LIBRARY_PATH=`pwd`/lib/
-	./bin/main
+	export LD_LIBRARY_PATH=`pwd`/lib && g++ src/main/main.cpp -L./lib/ -I./inc/ -ldecoder -lencoder -lunit_test -o bin/main && ./bin/main
 
 remove:
 	rm -rf obj bin lib

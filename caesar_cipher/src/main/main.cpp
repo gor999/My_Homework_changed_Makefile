@@ -18,13 +18,6 @@ int main(){
 		}
 		std::cout<<"Press key"<<std::endl;
 		std::cin>>key;	
-       if (std::cin.fail())
-       {
-          std::cout<<"emergency regime activated!!!!"<<std::endl;
-          std::cin.clear();  
-          std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-          return main();
-       }
 		std::string after_encoder = encoder(before_encoder, key);
 		std::cout<<after_encoder<<std::endl;
 		std::string after_decoder = decoder(after_encoder, key);
